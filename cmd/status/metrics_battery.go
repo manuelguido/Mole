@@ -17,12 +17,12 @@ import (
 
 var (
 	// Cache for heavy system_profiler output.
-	powerCacheMu     sync.Mutex
-	lastPowerAt      time.Time
-	lastPowerJSONAt  time.Time
-	cachedPower      string
-	cachedPowerJSON  string
-	powerCacheTTL    = 30 * time.Second
+	powerCacheMu    sync.Mutex
+	lastPowerAt     time.Time
+	lastPowerJSONAt time.Time
+	cachedPower     string
+	cachedPowerJSON string
+	powerCacheTTL   = 30 * time.Second
 )
 
 func collectBatteries() (batts []BatteryStatus, err error) {
