@@ -233,8 +233,10 @@ func parseAppleSmartBatteryHealth(out string) (cycles int, capacity int) {
 	for line := range strings.Lines(out) {
 		line = strings.TrimSpace(line)
 		if cycles == 0 {
-			if value, found := parseIORegSignedNumber(line, "CycleCount"); found && value > 0 && value < 100000 {
-				cycles = int(value)
+			if raw, found := ioRegValueForKey(line, "CycleCount"); found {
+				if value, err := strconv.Atoi(raw); err == nil && value > 0 && value < 100000 {
+					cycles = value
+				}
 			}
 		}
 		if capacity == 0 {
